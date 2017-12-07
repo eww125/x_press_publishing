@@ -11,8 +11,8 @@ db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='Artist'", (e
 
   if (table) {
     db.serialize(function() {
-      db.run("INSERT INTO Artist (name, date_of_birth, biography) VALUES ('Stan Lee', 'December 28, 1922', 'I definitely work here')");
-      db.run("INSERT INTO Artist (name, date_of_birth, biography) VALUES ('Jack Kirby', 'August 28, 1917', 'I also definitely work here')", function(error) {
+      db.run("INSERT INTO Artist (name, dateOfBirth, biography) VALUES ('Stan Lee', 'December 28, 1922', 'I definitely work here')");
+      db.run("INSERT INTO Artist (name, dateOfBirth, biography) VALUES ('Jack Kirby', 'August 28, 1917', 'I also definitely work here')", function(error) {
         if (error) {
           throw new Error(error);
         }
@@ -53,4 +53,3 @@ db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='Artist'", (e
     });
   }
 });
-
