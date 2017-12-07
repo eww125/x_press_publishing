@@ -8,6 +8,10 @@ const issuesRouter = require('./issues.js');
 
 seriesRouter.param('seriesId', (req, res, next, seriesId) => {
   console.log('made it to seriesRouter.param seriesId')
+  //console.log('seriesId=' + seriesId)
+  //console.log('Object.keys(req)=' + Object.keys(req))
+  //console.log('req._readableState=' + req._readableState)
+  //console.log(next)
   const sql = 'SELECT * FROM Series WHERE Series.id = $seriesId';
   const values = {$seriesId: seriesId};
   db.get(sql, values, (error, series) => {

@@ -43,11 +43,15 @@ artistsRouter.post('/', (req, res, next) => {
         dateOfBirth = req.body.artist.dateOfBirth,
         biography = req.body.artist.biography,
         isCurrentlyEmployed = req.body.artist.isCurrentlyEmployed === 0 ? 0 : 1;
+  console.log('name=' + name)
+  console.log('dateOfBirth=' + dateOfBirth)
+  console.log('biography=' + biography)
+  console.log('isCurrentlyEmployed=' + isCurrentlyEmployed)
   if (!name || !dateOfBirth || !biography) {
     return res.sendStatus(400);
   }
 
-  const sql = 'INSERT INTO Artist (name, biography, is_currently_employed)' +
+  const sql = 'INSERT INTO Artist (name, date_of_birth, biography, is_currently_employed)' +
       'VALUES ($name, $dateOfBirth, $biography, $isCurrentlyEmployed)';
   const values = {
     $name: name,
@@ -78,7 +82,7 @@ artistsRouter.put('/:artistId', (req, res, next) => {
     return res.sendStatus(400);
   }
 
-  const sql = 'UPDATE Artist SET name = $name, dateOfBirth = $dateOfBirth, ' +
+  const sql = 'UPDATE Artist SET name = $name, date_of_birth = $dateOfBirth, ' +
       'biography = $biography, is_currently_employed = $isCurrentlyEmployed ' +
       'WHERE Artist.id = $artistId';
   const values = {

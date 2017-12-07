@@ -1,0 +1,12 @@
+home:
+made it to seriesRouter.get/
+made it to artistsRouter.get/
+
+series:
+made it to seriesRouter.param seriesId
+made it to seriesRouter.param seriesId
+made it to artistsRouter.get/
+made it to seriesRouter.get/:seriesId
+made it to issuesRouter.get/
+
+artists:
