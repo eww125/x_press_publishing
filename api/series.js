@@ -7,6 +7,7 @@ const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite'
 const issuesRouter = require('./issues.js');
 
 seriesRouter.param('seriesId', (req, res, next, seriesId) => {
+  console.log('made it to seriesRouter.param seriesId')
   const sql = 'SELECT * FROM Series WHERE Series.id = $seriesId';
   const values = {$seriesId: seriesId};
   db.get(sql, values, (error, series) => {
@@ -24,6 +25,7 @@ seriesRouter.param('seriesId', (req, res, next, seriesId) => {
 seriesRouter.use('/:seriesId/issues', issuesRouter);
 
 seriesRouter.get('/', (req, res, next) => {
+  console.log('made it to seriesRouter.get/')
   db.all('SELECT * FROM Series', (err, series) => {
     if (err) {
       next(err);
@@ -34,10 +36,12 @@ seriesRouter.get('/', (req, res, next) => {
 });
 
 seriesRouter.get('/:seriesId', (req, res, next) => {
+  console.log('made it to seriesRouter.get/:seriesId')
   res.status(200).json({series: req.series});
 });
 
 seriesRouter.post('/', (req, res, next) => {
+  console.log('made it to seriesRouter.post/')
   const name = req.body.series.name,
         description = req.body.series.description;
   if (!name || !description) {
@@ -63,6 +67,7 @@ seriesRouter.post('/', (req, res, next) => {
 });
 
 seriesRouter.put('/:seriesId', (req, res, next) => {
+  console.log('made it to seriesRouter.put/:seriesId')
   const name = req.body.series.name,
         description = req.body.series.description;
   if (!name || !description) {
@@ -90,6 +95,7 @@ seriesRouter.put('/:seriesId', (req, res, next) => {
 });
 
 seriesRouter.delete('/:seriesId', (req, res, next) => {
+  console.log('made it to seriesRouter.delete/:seriesId')
   const issueSql = 'SELECT * FROM Issue WHERE Issue.series_id = $seriesId';
   const issueValues = {$seriesId: req.params.seriesId};
   db.get(issueSql, issueValues, (error, issue) => {

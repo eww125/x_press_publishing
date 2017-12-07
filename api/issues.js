@@ -5,6 +5,7 @@ const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite');
 
 issuesRouter.param('issueId', (req, res, next, issueId) => {
+  console.log('made it to issuesRouter.param issueId')
   const sql = 'SELECT * FROM Issue WHERE Issue.id = $issueId';
   const values = {$issueId: issueId};
   db.get(sql, values, (error, issue) => {
@@ -19,6 +20,7 @@ issuesRouter.param('issueId', (req, res, next, issueId) => {
 });
 
 issuesRouter.get('/', (req, res, next) => {
+  console.log('made it to issuesRouter.get/')
   const sql = 'SELECT * FROM Issue WHERE Issue.series_id = $seriesId';
   const values = { $seriesId: req.params.seriesId};
   db.all(sql, values, (error, issues) => {
@@ -31,6 +33,7 @@ issuesRouter.get('/', (req, res, next) => {
 });
 
 issuesRouter.post('/', (req, res, next) => {
+  console.log('made it to issuesRouter.post/')
   const name = req.body.issue.name,
         issueNumber = req.body.issue.issueNumber,
         publicationDate = req.body.issue.publicationDate,
@@ -70,6 +73,7 @@ issuesRouter.post('/', (req, res, next) => {
 });
 
 issuesRouter.put('/:issueId', (req, res, next) => {
+  console.log('made it to issuesRouter.put/:issueId')
   const name = req.body.issue.name,
         issueNumber = req.body.issue.issueNumber,
         publicationDate = req.body.issue.publicationDate,
@@ -110,6 +114,7 @@ issuesRouter.put('/:issueId', (req, res, next) => {
 });
 
 issuesRouter.delete('/:issueId', (req, res, next) => {
+  console.log('made it to issuesRouter.delete/:issueId')
   const sql = 'DELETE FROM Issue WHERE Issue.id = $issueId';
   const values = {$issueId: req.params.issueId};
 

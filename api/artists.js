@@ -5,6 +5,7 @@ const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite');
 
 artistsRouter.param('artistId', (req, res, next, artistId) => {
+  console.log('made it to artistsRouter.param artistId')
   const sql = 'SELECT * FROM Artist WHERE Artist.id = $artistId';
   const values = {$artistId: artistId};
   db.get(sql, values, (error, artist) => {
@@ -20,6 +21,7 @@ artistsRouter.param('artistId', (req, res, next, artistId) => {
 });
 
 artistsRouter.get('/', (req, res, next) => {
+  console.log('made it to artistsRouter.get/')
   db.all('SELECT * FROM Artist WHERE Artist.is_currently_employed = 1',
     (err, artists) => {
       if (err) {
@@ -31,10 +33,12 @@ artistsRouter.get('/', (req, res, next) => {
 });
 
 artistsRouter.get('/:artistId', (req, res, next) => {
+  console.log('made it to artistsRouter.get/:artistId')
   res.status(200).json({artist: req.artist});
 });
 
 artistsRouter.post('/', (req, res, next) => {
+  console.log('made it to artistsRouter.post')
   const name = req.body.artist.name,
         dateOfBirth = req.body.artist.dateOfBirth,
         biography = req.body.artist.biography,
@@ -65,6 +69,7 @@ artistsRouter.post('/', (req, res, next) => {
 });
 
 artistsRouter.put('/:artistId', (req, res, next) => {
+  console.log('made it to artistsRouter.put/:artistId')
   const name = req.body.artist.name,
         dateOfBirth = req.body.artist.dateOfBirth,
         biography = req.body.artist.biography,
@@ -97,6 +102,7 @@ artistsRouter.put('/:artistId', (req, res, next) => {
 });
 
 artistsRouter.delete('/:artistId', (req, res, next) => {
+  console.log('made it to artistsRouter.delete/:artistId')
   const sql = 'UPDATE Artist SET is_currently_employed = 0 WHERE Artist.id = $artistId';
   const values = {$artistId: req.params.artistId};
 
